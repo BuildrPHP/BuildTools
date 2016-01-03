@@ -56,11 +56,11 @@
         <equals arg1="${runMode}" arg2="${runModes.STANDALONE}" />
 
         <then>
-            <echo message="Started building ${phing.project.name} Version: ${projectVersion}!" level="info" />
+            <echo message="Started building ${projectName} Version: ${projectVersion}!" level="info" />
         </then>
 
         <else>
-            <echo message="Started building ${phing.project.name} Version: ${projectVersion}! Build ID on phabricator: ${buildId}" level="info" />
+            <echo message="Started building ${projectName} Version: ${projectVersion}! Build ID on phabricator: ${buildId}" level="info" />
         </else>
     </if>
 
@@ -339,11 +339,11 @@
             depends="prepare"
             description="Perform artifact creation from the current build and documentation">
 
-        <zip destfile="${buildOutputPath}/release/${phing.project.name}-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+        <zip destfile="${buildOutputPath}/release/${projectName}-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
              basedir="."
              excludes="**/vendor/**,**/build/**,**/cache.properties" />
 
-        <zip destfile="${buildOutputPath}/release/${phing.project.name}-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+        <zip destfile="${buildOutputPath}/release/${projectName}-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
              basedir="${buildOutputPath}/doc" />
 
     </target>
