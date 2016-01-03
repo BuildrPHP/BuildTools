@@ -322,9 +322,9 @@
 
         <exec passthru="true" executable="${toolsdir}apigen${binaryExtension}">
             <arg value="generate" />
-            <arg value="--source" />
-            <arg path="${baseDir}\src\" />
-            <arg value="--destination" />
+            <arg value="-s" />
+            <arg path="${baseDir}/src/" />
+            <arg value="-d" />
             <arg path="${buildOutputPath}/doc" />
             <arg value="--deprecated" />
             <arg value="--todo" />
