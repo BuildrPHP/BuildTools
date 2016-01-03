@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Project definition (This variable will be replaced) -->
-<project name="BuildR Phing Build" basedir=".." default="default">
+<project name="BuildR Phing Build" basedir="." default="default">
 
     <!-- Project actual baseDir definition -->
     <property name="baseDir" value="${project.basedir}"/>
@@ -56,11 +56,11 @@
         <equals arg1="${runMode}" arg2="${runModes.STANDALONE}" />
 
         <then>
-            <echo message="Started building ${phing.project.name}!" level="info" />
+            <echo message="Started building ${phing.project.name} Version: ${projectVersion}!" level="info" />
         </then>
 
         <else>
-            <echo message="Started building ${phing.project.name}! Build ID on phabricator: ${buildId}" level="info" />
+            <echo message="Started building ${phing.project.name} Version: ${projectVersion}! Build ID on phabricator: ${buildId}" level="info" />
         </else>
     </if>
 
@@ -271,7 +271,7 @@
         </if>
 
         <exec passthru="true" executable="${toolsdir}phpcs${binaryExtension}">
-            <arg line="--config-set installed_paths '${baseDir}/codingStandard/standard'"/>
+            <arg line="--config-set installed_paths '${baseDir}/buildTools/codingStandard/standard'"/>
         </exec>
 
         <!-- Execute process -->
@@ -323,7 +323,7 @@
         <exec passthru="true" executable="${toolsdir}apigen${binaryExtension}">
             <arg value="generate" />
             <arg value="--source" />
-            <arg path="${baseDir}/src/" />
+            <arg path="${baseDir}\src\" />
             <arg value="--destination" />
             <arg path="${buildOutputPath}/doc" />
             <arg value="--deprecated" />
