@@ -77,7 +77,7 @@
 
     <!-- Target for default build configuration -->
     <target name="build"
-            depends="clean,prepare,composer,lint,phpunit,phpcs,phpcpd,phploc,pdepend,api-documentation,changelog,artifact"
+            depends="clean,prepare,composer,lint,phpunit,phpcs,phpcpd,phploc,pdepend,documentation,api-documentation,changelog,artifact"
             description="Main build target for internal build-system builds" />
 
     <!-- Clean all previous build in workspace -->
@@ -361,7 +361,7 @@
         <zip destfile="${buildOutputPath}/release/${projectName}-api-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
              basedir="${buildOutputPath}/api_doc" />
 
-        <zip destfile="${buildOutputPath}/release/${projectName}-api-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+        <zip destfile="${buildOutputPath}/release/${projectName}-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
              basedir="${buildOutputPath}/doc" />
     </target>
 
