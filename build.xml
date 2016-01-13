@@ -104,6 +104,7 @@
         <mkdir dir="${buildOutputPath}/pdepend" />
         <mkdir dir="${buildOutputPath}/release" />
         <mkdir dir="${buildOutputPath}/api_doc" />
+        <mkdir dir="${buildOutputPath}/doc" />
         <property name="prepare.done" value="true" />
 
     </target>
@@ -334,6 +335,20 @@
 
     </target>
 
+    <!-- API Documentation generation -->
+    <target name="documentation"
+            depends="prepare"
+            description="Perform documentation generation using couscous">
+
+        <exec passthru="true" executable="${toolsdir}couscous{binaryExtension}">
+            <arg value="generate" />
+            <arg value="--target" />
+            <arg path="${buildOutputPath}/doc" />
+            <arg value="--no-interaction" />
+        </exec>
+
+    </target>
+
     <!-- Artifact creation -->
     <target name="artifact"
             depends="prepare"
@@ -346,6 +361,8 @@
         <zip destfile="${buildOutputPath}/release/${projectName}-api-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
              basedir="${buildOutputPath}/api_doc" />
 
+        <zip destfile="${buildOutputPath}/release/${projectName}-api-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+             basedir="${buildOutputPath}/doc" />
     </target>
 
 </project>
