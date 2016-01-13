@@ -340,7 +340,7 @@
             depends="prepare"
             description="Perform documentation generation using couscous">
 
-        <exec passthru="true" executable="${toolsdir}couscous{binaryExtension}">
+        <exec passthru="true" executable="${toolsdir}couscous${binaryExtension}">
             <arg value="generate" />
             <arg value="--target" />
             <arg path="${buildOutputPath}/doc" />
