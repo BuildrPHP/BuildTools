@@ -77,7 +77,7 @@
 
     <!-- Target for default build configuration -->
     <target name="build"
-            depends="clean,prepare,composer,lint,phpunit,phpcs,phpcpd,phploc,pdepend,documentation,changelog,artifact"
+            depends="clean,prepare,composer,lint,phpunit,phpcs,phpcpd,phploc,pdepend,api-documentation,changelog,artifact"
             description="Main build target for internal build-system builds" />
 
     <!-- Clean all previous build in workspace -->
@@ -103,7 +103,7 @@
         <mkdir dir="${buildOutputPath}/coverage" />
         <mkdir dir="${buildOutputPath}/pdepend" />
         <mkdir dir="${buildOutputPath}/release" />
-        <mkdir dir="${buildOutputPath}/doc" />
+        <mkdir dir="${buildOutputPath}/api_doc" />
         <property name="prepare.done" value="true" />
 
     </target>
@@ -315,17 +315,17 @@
 
     </target>
 
-    <!-- Documentation generation -->
-    <target name="documentation"
+    <!-- API Documentation generation -->
+    <target name="api-documentation"
             depends="prepare"
-            description="Perform documentation generation using APIGen">
+            description="Perform API documentation generation using APIGen">
 
         <exec passthru="true" executable="${toolsdir}apigen${binaryExtension}">
             <arg value="generate" />
             <arg value="-s" />
             <arg path="${baseDir}/src/" />
             <arg value="-d" />
-            <arg path="${buildOutputPath}/doc" />
+            <arg path="${buildOutputPath}/api_doc" />
             <arg value="--deprecated" />
             <arg value="--todo" />
             <arg value="--tree" />
@@ -337,14 +337,14 @@
     <!-- Artifact creation -->
     <target name="artifact"
             depends="prepare"
-            description="Perform artifact creation from the current build and documentation">
+            description="Perform artifact creation from the current build, documentation and API documentation">
 
         <zip destfile="${buildOutputPath}/release/${projectName}-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
              basedir="."
              excludes="**/vendor/**,**/build/**,**/cache.properties" />
 
-        <zip destfile="${buildOutputPath}/release/${projectName}-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
-             basedir="${buildOutputPath}/doc" />
+        <zip destfile="${buildOutputPath}/release/${projectName}-api-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+             basedir="${buildOutputPath}/api_doc" />
 
     </target>
 
