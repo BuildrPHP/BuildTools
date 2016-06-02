@@ -19,9 +19,9 @@
     <property name="projectVersion" value="${project.version}" />
     <property name="projectName" value="${project.name}" />
 
-    <!-- Set buildId and VCS type passed by phabricator, harbormaster application -->
-    <property name="buildId" value="${harbormaster_build_id}" />
-    <property name="vcsType" value="${harbormaster_vcs_type}" />
+    <!-- Set buildId and VCS type -->
+    <property name="buildId" value="${external_build_id}" />
+    <property name="vcsType" value="${external_vcs_type}" />
 
     <!-- Where tools store output files -->
     <property name="buildOutputPath" value="${baseDir}/build/output" />
@@ -39,9 +39,9 @@
     <property name="runModes.BUILD_SYSTEM" value="BUILD_SYSTEM"/>
     <property name="runModes.STANDALONE" value="STANDALONE" />
 
-    <!-- Detect run mode (Standalone or Phabricator)-->
+    <!-- Detect run mode (Standalone or build system)-->
     <if>
-        <isset property="harbormaster_build_id" />
+        <isset property="external_build_id" />
         <then>
             <property name="runMode" value="${runModes.BUILD_SYSTEM}" />
         </then>
@@ -60,7 +60,7 @@
         </then>
 
         <else>
-            <echo message="Started building ${projectName} Version: ${projectVersion}! Build ID on phabricator: ${buildId}" level="info" />
+            <echo message="Started building ${projectName} Version: ${projectVersion}! Build ID: ${buildId}" level="info" />
         </else>
     </if>
 
@@ -339,11 +339,11 @@
             depends="prepare"
             description="Perform artifact creation from the current build and documentation">
 
-        <zip destfile="${buildOutputPath}/release/${projectName}-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+        <zip destfile="${buildOutputPath}/release/${projectName}-${projectVersion}.${external_vcs_type}-${external_build_id}.zip"
              basedir="."
              excludes="**/vendor/**,**/build/**,**/cache.properties" />
 
-        <zip destfile="${buildOutputPath}/release/${projectName}-doc-${projectVersion}.${harbormaster_vcs_type}-${harbormaster_build_id}.zip"
+        <zip destfile="${buildOutputPath}/release/${projectName}-doc-${projectVersion}.${external_vcs_type}-${external_build_id}.zip"
              basedir="${buildOutputPath}/doc" />
 
     </target>
